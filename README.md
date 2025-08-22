@@ -18,7 +18,7 @@ Currently uses an in-memory store (array) — database integration planned in th
 
 ### 1️⃣ Clone the repository
 ```bash
-git clone https://github.com/your-username/task-manager-api.git
+git clone https://github.com/harshitmahara2455/task-manager-api.git
 cd task-manager-api
 ```
 ### 2️⃣ Install dependencies
