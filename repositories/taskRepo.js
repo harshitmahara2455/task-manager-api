@@ -25,7 +25,7 @@ for (let i = 1; i <= 50; i++) {
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
   });
-}
+} 
 
 
 const createTask  =(data )=>{

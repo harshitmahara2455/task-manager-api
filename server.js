@@ -1,11 +1,20 @@
 const  express = require("express") //imported express 
 const taskRepo =require("./repositories/taskRepo")
+const {validationResult} =require('express-validator');
+const { validateTaskCreate, validateTaskUpdate } = require("./validators/taskvalidators");
+
+
 const app= express();  // now i can  get that express into work 
 
 app.use(express.json()); // its a middlerware that will help us parse json data 
 
 // to create a task 
-app.post("/tasks",(req,res)=>{
+app.post("/tasks",validateTaskCreate,(req,res)=>{
+
+    const error = validationResult(req); 
+    if(!error.isEmpty()){
+        return res.status(400).json({error:error.array()})
+    }
     const task = taskRepo.createTask(req.body)
     res.status(201).json(task); 
 
@@ -62,7 +71,12 @@ app.get("/tasks/:id",(req,res)=>{
     res.json(task); 
 })
 // update a task by id 
-app.patch("/tasks/:id",(req,res)=>{
+app.patch("/tasks/:id",validateTaskUpdate,(req,res)=>{
+
+    const errors =validationResult(req); 
+    if(!errors.isEmpty()){
+        return res.status(400).json({errors:errors.array()})
+    }
     const updated = taskRepo.updateTask(req.params.id,req.body);
     if(!updated){
         return res.status(404).json({
